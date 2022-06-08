@@ -46,11 +46,8 @@ namespace ScReader.Forms
                 _isSizeChange = false;
                 _mainForm = Owner as MainForm;
 
-                GC.Collect(2, GCCollectionMode.Forced);
-                GC.WaitForPendingFinalizers();
+                CollectGarbage();
 
-                if (_mainForm._isShow == true)
-                    _mainForm.Show();
                 this.Close();
             }
         }
@@ -73,10 +70,9 @@ namespace ScReader.Forms
                 }
 
                 ScreenImage.Refresh();
-
-                GC.Collect(2, GCCollectionMode.Forced);
-                GC.WaitForPendingFinalizers();
             }
+
+            CollectGarbage();
 
             ScreenImage.Refresh();
         }
@@ -92,9 +88,10 @@ namespace ScReader.Forms
 
             if (_startPoint == _endPoint)
             {
-                if (_mainForm._isShow == true)
-                    _mainForm.Show();
                 this.Close();
+
+                CollectGarbage();
+
                 return;
             }
 
@@ -123,9 +120,6 @@ namespace ScReader.Forms
 
                     _statusForm.Close();
 
-                    if (_mainForm._isShow)
-                        _mainForm.Show();
-
                     this.Close();
                 }
 
@@ -151,13 +145,9 @@ namespace ScReader.Forms
                 _statusForm.Close();
             }
 
-            if (_mainForm._isShow)
-                _mainForm.Show();
-
             this.Close();
 
-            GC.Collect(2, GCCollectionMode.Forced);
-            GC.WaitForPendingFinalizers();
+            CollectGarbage();
         }
 
         private string Recognition(string path)
@@ -224,6 +214,23 @@ namespace ScReader.Forms
             _aimForm = new AimForm();
             _aimForm.Show();
             _aimForm.UpdatePosition(Cursor.Position);
+        }
+
+        private void PictureForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_mainForm._isShow)
+                _mainForm.Show();
+            CollectGarbage();
+        }
+
+        private void CollectGarbage()
+        {
+            GC.Collect(0, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(1, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(2, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
         }
     }
 }

@@ -59,6 +59,7 @@
             this.ShowInTaskbar = false;
             this.Text = "PictureForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PictureForm_FormClosing);
             this.Load += new System.EventHandler(this.PictureForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ScreenImage)).EndInit();
             this.ResumeLayout(false);

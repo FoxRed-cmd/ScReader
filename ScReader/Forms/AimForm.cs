@@ -74,8 +74,7 @@ namespace ScReader.Forms
 
                 AimPicture.Refresh();
 
-                GC.Collect(2, GCCollectionMode.Forced);
-                GC.WaitForPendingFinalizers();
+                CollectGarbage();
             }
         }
 
@@ -84,6 +83,21 @@ namespace ScReader.Forms
             Top = 0;
             Left = 0;
             _windowPosition = new Point(Top, Left);
+        }
+
+        private void AimForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CollectGarbage();
+        }
+
+        private void CollectGarbage()
+        {
+            GC.Collect(0, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(1, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(2, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
         }
     }
 }

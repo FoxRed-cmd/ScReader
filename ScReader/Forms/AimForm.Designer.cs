@@ -54,6 +54,7 @@
             this.Name = "AimForm";
             this.Text = "AimForm";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AimForm_FormClosing);
             this.Load += new System.EventHandler(this.AimForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.AimPicture)).EndInit();
             this.ResumeLayout(false);

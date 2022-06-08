@@ -177,6 +177,13 @@ namespace ScReader.Forms
 
         private void ShowScreen(object sender, EventArgs e)
         {
+            GC.Collect(0, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(1, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(2, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+
             if (SavePathTextBox.Text != null && SavePathTextBox.Text != string.Empty)
             {
                 this.Hide();

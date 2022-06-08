@@ -22,5 +22,15 @@ namespace ScReader.Forms
 
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 12, 12));
         }
+
+        private void StatusForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            GC.Collect(0, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(1, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(2, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+        }
     }
 }

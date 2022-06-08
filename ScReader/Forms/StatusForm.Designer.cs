@@ -55,6 +55,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "StatusForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StatusForm_FormClosing);
             this.ResumeLayout(false);
 
         }
