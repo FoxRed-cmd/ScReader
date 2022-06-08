@@ -48,7 +48,6 @@
             // 
             this.SavePathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SavePathTextBox.Location = new System.Drawing.Point(87, 38);
-            this.SavePathTextBox.Multiline = true;
             this.SavePathTextBox.Name = "SavePathTextBox";
             this.SavePathTextBox.Size = new System.Drawing.Size(208, 23);
             this.SavePathTextBox.TabIndex = 1;

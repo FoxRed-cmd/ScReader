@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Drawing.Drawing2D;
 
 namespace ScReader.Forms
 {
@@ -18,7 +19,7 @@ namespace ScReader.Forms
         );
 
         private GlobalKeyboardHook _globalKeyboard;
-
+        
 
         private bool _isDragging = false;
         private Point _dragCursorPoint;
@@ -28,6 +29,7 @@ namespace ScReader.Forms
         internal bool _isShow = true;
         internal bool _getText = false;
         internal string _prevPath;
+        internal Image _currentImage;
 
         internal string _savePath;
         private FolderBrowserDialog _folderBrowserDialog;
@@ -180,8 +182,8 @@ namespace ScReader.Forms
                 this.Hide();
 
                 _pictureForm = new PictureForm() { Owner = this };
-                _pictureForm.ScreenImage.Image = MakeScreenshot();
-                _pictureForm.CurrentImage = _pictureForm.ScreenImage.Image;
+                _currentImage = MakeScreenshot();
+                _pictureForm.ScreenImage.Image = _currentImage;
                 _pictureForm.ShowDialog();
 
                 _image.Dispose();
@@ -200,6 +202,7 @@ namespace ScReader.Forms
 
             using (_graphics = Graphics.FromImage(_image))
             {
+                _graphics.CompositingQuality = CompositingQuality.HighQuality;
                 _graphics.CopyFromScreen(Point.Empty, Point.Empty, _resolution.Size);
             }
 
@@ -222,6 +225,7 @@ namespace ScReader.Forms
 
             using (_graphics = Graphics.FromImage(_image))
             {
+                _graphics.CompositingQuality = CompositingQuality.HighQuality;
                 _graphics.CopyFromScreen(start, Point.Empty, _resolution.Size);
             }
 

@@ -8,6 +8,7 @@ namespace ScReader.Forms
     public partial class PictureForm : Form
     {
         private StatusForm _statusForm;
+        private AimForm _aimForm;
         private Task _task;
 
         private bool _isSizeChange = false;
@@ -27,7 +28,8 @@ namespace ScReader.Forms
         public PictureForm()
         {
             InitializeComponent();
-            _statusForm = new StatusForm();
+            
+            _statusForm = new StatusForm();            
         }
 
         private void ScreenImage_MouseDown(object sender, MouseEventArgs e)
@@ -39,6 +41,8 @@ namespace ScReader.Forms
             }
             else if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Middle)
             {
+                _aimForm.Close();
+
                 _isSizeChange = false;
                 _mainForm = Owner as MainForm;
 
@@ -53,10 +57,12 @@ namespace ScReader.Forms
 
         private void ScreenImage_MouseMove(object sender, MouseEventArgs e)
         {
+            _aimForm.UpdatePosition(Cursor.Position);
+
+            ScreenImage.Image = (Image?)_mainForm._currentImage.Clone();
+
             if (_isSizeChange)
             {
-                ScreenImage.Image = (Image?)CurrentImage.Clone();
-
                 using (_pen = new Pen(Brushes.Red, 1))
                 {
                     using (_graphics = Graphics.FromImage(ScreenImage.Image))
@@ -71,16 +77,28 @@ namespace ScReader.Forms
                 GC.Collect(2, GCCollectionMode.Forced);
                 GC.WaitForPendingFinalizers();
             }
+
+            ScreenImage.Refresh();
         }
 
         private async void ScreenImage_MouseUp(object sender, MouseEventArgs e)
         {
+            _aimForm.Close();
+
             _isSizeChange = false;
             _endPoint = Cursor.Position;
 
             _mainForm = Owner as MainForm;
 
-            ScreenImage.Image = (Image?)CurrentImage.Clone();
+            if (_startPoint == _endPoint)
+            {
+                if (_mainForm._isShow == true)
+                    _mainForm.Show();
+                this.Close();
+                return;
+            }
+
+            ScreenImage.Image = (Image?)_mainForm._currentImage.Clone();
             ScreenImage.Refresh();
 
             if (_mainForm._getText == false)
@@ -137,6 +155,9 @@ namespace ScReader.Forms
                 _mainForm.Show();
 
             this.Close();
+
+            GC.Collect(2, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
         }
 
         private string Recognition(string path)
@@ -195,6 +216,14 @@ namespace ScReader.Forms
 
             if (rectangle.Height < 0)
                 rectangle.Height *= -1;
+        }
+
+        private void PictureForm_Load(object sender, EventArgs e)
+        {
+            _mainForm = Owner as MainForm;
+            _aimForm = new AimForm();
+            _aimForm.Show();
+            _aimForm.UpdatePosition(Cursor.Position);
         }
     }
 }
