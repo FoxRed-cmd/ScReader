@@ -19,6 +19,7 @@ namespace ScReader.Forms
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
+            BackColor = Color.FromArgb(44, 62, 98);
 
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 12, 12));
         }
