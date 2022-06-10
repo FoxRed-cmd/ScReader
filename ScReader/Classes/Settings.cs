@@ -7,12 +7,12 @@ namespace ScReader
     internal class Settings
     {
         private RegistryKey _write;
-        private RegistryKey _read;
 
         public int Top { get; set; } = 50;
         public int Left { get; set; } = 50;
         public string SavePath { get; set; } = $@"{Application.StartupPath}ScReaderImages";
         public bool AutoStart { get; set; }
+        public bool SaveImage { get; set; } = true;
 
         private string _settingsPath = $@"{Application.StartupPath}settings.json";
 

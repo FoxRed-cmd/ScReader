@@ -41,15 +41,16 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.ReadText = new System.Windows.Forms.Button();
             this.OpenInExplorer = new System.Windows.Forms.Button();
+            this.SaveImage = new System.Windows.Forms.CheckBox();
             this.Title.SuspendLayout();
             this.SuspendLayout();
             // 
             // SavePathTextBox
             // 
             this.SavePathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SavePathTextBox.Location = new System.Drawing.Point(87, 38);
+            this.SavePathTextBox.Location = new System.Drawing.Point(54, 38);
             this.SavePathTextBox.Name = "SavePathTextBox";
-            this.SavePathTextBox.Size = new System.Drawing.Size(208, 23);
+            this.SavePathTextBox.Size = new System.Drawing.Size(241, 23);
             this.SavePathTextBox.TabIndex = 1;
             // 
             // SavePath
@@ -59,7 +60,7 @@
             this.SavePath.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.SavePath.FlatAppearance.BorderSize = 0;
             this.SavePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SavePath.Location = new System.Drawing.Point(301, 38);
+            this.SavePath.Location = new System.Drawing.Point(301, 37);
             this.SavePath.Name = "SavePath";
             this.SavePath.Size = new System.Drawing.Size(24, 24);
             this.SavePath.TabIndex = 2;
@@ -72,9 +73,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 15);
+            this.label1.Size = new System.Drawing.Size(36, 15);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Сохранить:";
+            this.label1.Text = "Путь:";
             // 
             // Screenshot
             // 
@@ -83,7 +84,7 @@
             this.Screenshot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Screenshot.FlatAppearance.BorderSize = 0;
             this.Screenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Screenshot.Location = new System.Drawing.Point(331, 38);
+            this.Screenshot.Location = new System.Drawing.Point(301, 62);
             this.Screenshot.Name = "Screenshot";
             this.Screenshot.Size = new System.Drawing.Size(24, 24);
             this.Screenshot.TabIndex = 0;
@@ -148,9 +149,10 @@
             this.CheckBoxAutoRun.AutoSize = true;
             this.CheckBoxAutoRun.Location = new System.Drawing.Point(12, 67);
             this.CheckBoxAutoRun.Name = "CheckBoxAutoRun";
-            this.CheckBoxAutoRun.Size = new System.Drawing.Size(195, 19);
+            this.CheckBoxAutoRun.Size = new System.Drawing.Size(150, 19);
             this.CheckBoxAutoRun.TabIndex = 6;
-            this.CheckBoxAutoRun.Text = "Запускать при старте Windows";
+            this.CheckBoxAutoRun.Text = "Автозагрузка Windows";
+            this.toolTip1.SetToolTip(this.CheckBoxAutoRun, "Добавляет приложение в автозагрузку");
             this.CheckBoxAutoRun.UseVisualStyleBackColor = true;
             // 
             // ReadText
@@ -159,7 +161,7 @@
             this.ReadText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ReadText.FlatAppearance.BorderSize = 0;
             this.ReadText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ReadText.Location = new System.Drawing.Point(331, 63);
+            this.ReadText.Location = new System.Drawing.Point(331, 62);
             this.ReadText.Name = "ReadText";
             this.ReadText.Size = new System.Drawing.Size(24, 24);
             this.ReadText.TabIndex = 7;
@@ -173,7 +175,7 @@
             this.OpenInExplorer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.OpenInExplorer.FlatAppearance.BorderSize = 0;
             this.OpenInExplorer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OpenInExplorer.Location = new System.Drawing.Point(301, 64);
+            this.OpenInExplorer.Location = new System.Drawing.Point(331, 38);
             this.OpenInExplorer.Name = "OpenInExplorer";
             this.OpenInExplorer.Size = new System.Drawing.Size(24, 23);
             this.OpenInExplorer.TabIndex = 8;
@@ -181,11 +183,24 @@
             this.OpenInExplorer.UseVisualStyleBackColor = true;
             this.OpenInExplorer.Click += new System.EventHandler(this.OpenInExplorer_Click);
             // 
+            // SaveImage
+            // 
+            this.SaveImage.AutoSize = true;
+            this.SaveImage.Location = new System.Drawing.Point(168, 67);
+            this.SaveImage.Name = "SaveImage";
+            this.SaveImage.Size = new System.Drawing.Size(84, 19);
+            this.SaveImage.TabIndex = 9;
+            this.SaveImage.Text = "Сохранять";
+            this.toolTip1.SetToolTip(this.SaveImage, "Если не отмечено, изображения не будут сохраняться на диске, отправляясь сразу в " +
+        "буфер обмена");
+            this.SaveImage.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 92);
+            this.Controls.Add(this.SaveImage);
             this.Controls.Add(this.OpenInExplorer);
             this.Controls.Add(this.ReadText);
             this.Controls.Add(this.CheckBoxAutoRun);
@@ -225,5 +240,6 @@
         private ToolTip toolTip1;
         private Button ReadText;
         private Button OpenInExplorer;
+        private CheckBox SaveImage;
     }
 }

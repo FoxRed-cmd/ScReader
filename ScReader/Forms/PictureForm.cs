@@ -94,7 +94,7 @@ namespace ScReader.Forms
 
             if (_mainForm._getText == false)
             {
-                _mainForm.MakeScreenshot(_startPoint, _endPoint, true);
+                _mainForm.MakeScreenshot(_startPoint, _endPoint, _mainForm._settings.SaveImage);
             }
             else
             {
@@ -215,8 +215,11 @@ namespace ScReader.Forms
 
         private void PictureForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_mainForm._isShow)
-                _mainForm.Show();
+            if (_mainForm != null)
+            {
+                if (_mainForm._isShow)
+                    _mainForm.Show();
+            }
             CollectGarbage();
         }
 

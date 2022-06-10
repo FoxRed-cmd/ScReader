@@ -42,7 +42,7 @@ namespace ScReader.Forms
         private Bitmap _image;
         private Graphics _graphics;
 
-        private Settings _settings;
+        internal Settings _settings;
         public MainForm()
         {
             InitializeComponent();
@@ -55,6 +55,7 @@ namespace ScReader.Forms
             BackColor = Color.FromArgb(33, 44, 57);
             SavePathTextBox.BackColor = Color.FromArgb(44, 62, 98);
             SavePathTextBox.ForeColor = Color.WhiteSmoke;
+            SaveImage.ForeColor = Color.WhiteSmoke;
 
             TitleText.ForeColor = Color.WhiteSmoke;
             label1.ForeColor = Color.WhiteSmoke;
@@ -117,6 +118,14 @@ namespace ScReader.Forms
             SavePathTextBox.TextChanged += (s, e) =>
             {
                 _savePath = SavePathTextBox.Text;
+                _settings.SavePath = _savePath;
+                _settings.WriteConfig(_settings);
+            };
+
+            SaveImage.CheckedChanged += (s, e) =>
+            {
+                _settings.SaveImage = SaveImage.Checked;
+                _settings.WriteConfig(_settings);
             };
 
             CheckBoxAutoRun.CheckedChanged += (s, e) =>
@@ -154,7 +163,13 @@ namespace ScReader.Forms
             }
         }
 
-        private void Title_MouseUp(object sender, MouseEventArgs e) => _isDragging = false;
+        private void Title_MouseUp(object sender, MouseEventArgs e)
+        {
+            _settings.Top = Top;
+            _settings.Left = Left;
+            _settings.WriteConfig(_settings);
+            _isDragging = false;
+        }
 
         private void SavePath_Click(object sender, EventArgs e)
         {
@@ -322,6 +337,7 @@ namespace ScReader.Forms
             _settings = _settings.ReadConfig(_settings);
 
             CheckBoxAutoRun.Checked = _settings.AutoStart;
+            SaveImage.Checked = _settings.SaveImage;
 
             _savePath = _settings.SavePath;
             SavePathTextBox.Text = _savePath;
