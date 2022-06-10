@@ -28,8 +28,6 @@ namespace ScReader.Forms
         public PictureForm()
         {
             InitializeComponent();
-            
-            _statusForm = new StatusForm();            
         }
 
         private void ScreenImage_MouseDown(object sender, MouseEventArgs e)
@@ -44,8 +42,6 @@ namespace ScReader.Forms
                 _aimForm.Close();
 
                 _isSizeChange = false;
-                _mainForm = Owner as MainForm;
-
                 CollectGarbage();
 
                 this.Close();
@@ -83,8 +79,6 @@ namespace ScReader.Forms
 
             _isSizeChange = false;
             _endPoint = Cursor.Position;
-
-            _mainForm = Owner as MainForm;
 
             if (_startPoint == _endPoint)
             {
@@ -143,6 +137,8 @@ namespace ScReader.Forms
                 await Task.Delay(1000);
 
                 _statusForm.Close();
+
+                return;
             }
 
             this.Close();
@@ -211,6 +207,7 @@ namespace ScReader.Forms
         private void PictureForm_Load(object sender, EventArgs e)
         {
             _mainForm = Owner as MainForm;
+            _statusForm = new StatusForm();
             _aimForm = new AimForm();
             _aimForm.Show();
             _aimForm.UpdatePosition(Cursor.Position);
