@@ -8,7 +8,6 @@ namespace ScReader.Forms
         private Bitmap _imageZoom;
         private Graphics _graphics;
         private Rectangle _resolution;
-        private Point _windowPosition;
         private Pen _pen;
 
         public AimForm()
@@ -38,27 +37,18 @@ namespace ScReader.Forms
 
         private void ChangeWindowPosition(ref Point cursorPosition)
         {
-
-            if (GetDistance(ref _windowPosition, ref cursorPosition) < 450 && Top == 0 && Left == 0)
+            _resolution = Screen.PrimaryScreen.Bounds;
+            if (cursorPosition.X < _resolution.Width / 2 && cursorPosition.Y < _resolution.Height / 2)
             {
-                _resolution = Screen.PrimaryScreen.Bounds;
-                Top = _resolution.Height - Height;
                 Left = _resolution.Width - Width;
-
-                _windowPosition.X = Top;
-                _windowPosition.Y = Left;
+                Top = _resolution.Height - Height;
             }
-            else if (GetDistance(ref _windowPosition, ref cursorPosition) < 1400 && Top != 0 && Left != 0)
+            else if (cursorPosition.X > _resolution.Width / 2 && cursorPosition.Y > _resolution.Height / 2)
             {
                 Top = 0;
                 Left = 0;
-
-                _windowPosition.X = Top;
-                _windowPosition.Y = Left;
             }
         }
-
-        private double GetDistance(ref Point pointA, ref Point pointB) => Math.Sqrt(Math.Pow(pointB.X - pointA.X, 2) + Math.Pow(pointB.Y - pointA.Y, 2));
 
         public void UpdatePosition(Point cursorPosition)
         {
@@ -82,7 +72,6 @@ namespace ScReader.Forms
         {
             Top = 0;
             Left = 0;
-            _windowPosition = new Point(Top, Left);
         }
 
         private void AimForm_FormClosing(object sender, FormClosingEventArgs e)

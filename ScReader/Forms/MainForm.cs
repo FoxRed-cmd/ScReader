@@ -187,8 +187,6 @@ namespace ScReader.Forms
             if (SavePathTextBox.Text != null && SavePathTextBox.Text != string.Empty)
             {
                 this.Hide();
-
-                _pictureForm = new PictureForm() { Owner = this };
                 _currentImage = MakeScreenshot();
                 _pictureForm.ScreenImage.Image = _currentImage;
                 _pictureForm.ShowDialog();
@@ -330,6 +328,8 @@ namespace ScReader.Forms
 
             this.Top = _settings.Top;
             this.Left = _settings.Left;
+
+            _pictureForm = new PictureForm() { Owner = this };
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
