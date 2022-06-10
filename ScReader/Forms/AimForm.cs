@@ -58,7 +58,7 @@ namespace ScReader.Forms
             }
         }
 
-        private double GetDistance(ref Point pointA, ref Point pointИ) => Math.Sqrt(Math.Pow(pointИ.X - pointA.X, 2) + Math.Pow(pointИ.Y - pointA.Y, 2));
+        private double GetDistance(ref Point pointA, ref Point pointB) => Math.Sqrt(Math.Pow(pointB.X - pointA.X, 2) + Math.Pow(pointB.Y - pointA.Y, 2));
 
         public void UpdatePosition(Point cursorPosition)
         {
