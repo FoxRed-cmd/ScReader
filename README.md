@@ -2,6 +2,7 @@
 Application for taking screenshots and extracting text from images
 
 ## Information for start
+For text recognition to work correctly, the path to the program folder must contain only Latin characters
 
 Required to run .NET 6 Desktop Runtime
 
