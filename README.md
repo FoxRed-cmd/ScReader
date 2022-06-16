@@ -4,7 +4,10 @@ Application for taking screenshots and extracting text from images
 ## Information for start
 
 Required to run .NET 6 Desktop Runtime
-You can install it using the exe file from the archive or download it from the official website Microsoft — https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+
+You can install it using the exe file from the archive or download it from the official website Microsoft:
+
+https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 
 - [arm64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.6-windows-arm64-installer)
 
