@@ -154,7 +154,7 @@ namespace ScReader.Forms
             {
                 tesseract.SetImage(new Image<Bgr, byte>(path));
                 tesseract.Recognize();
-                return $"{tesseract.GetUTF8Text()}\n";
+                return $"{tesseract.GetUTF8Text()}";
             }
         }
 
@@ -165,7 +165,9 @@ namespace ScReader.Forms
             {
                 if (path.EndsWith(".png") || path.EndsWith(".jpg"))
                 {
-                    recText += Recognition(path);
+                    List<char> arr = Recognition(path).ToList();
+                    arr.RemoveRange(arr.Count - 2, 2);
+                    recText = new string(arr.ToArray());
                 }
             });
             _task.Start();
