@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using System.Drawing.Drawing2D;
 
 namespace ScReader.Forms
 {
@@ -10,16 +10,13 @@ namespace ScReader.Forms
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
-            int nLeftRect,     
-            int nTopRect,      
-            int nRightRect,    
-            int nBottomRect,   
-            int nWidthEllipse, 
-            int nHeightEllipse 
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
         );
-
-        private GlobalKeyboardHook _globalKeyboard;
-        
 
         private bool _isDragging = false;
         private Point _dragCursorPoint;
@@ -49,49 +46,63 @@ namespace ScReader.Forms
 
             Title.BackColor = Color.FromArgb(44, 62, 98);
             ButtonMinimize.BackColor = Color.FromArgb(44, 62, 98);
+            SavePath.BackColor = Color.FromArgb(44, 62, 98);
+            Screenshot.BackColor = Color.FromArgb(44, 62, 98);
             ButtonExit.BackColor = Color.FromArgb(44, 62, 98);
-            SavePath.BackColor = Color.FromArgb(33, 44, 57);
-            Screenshot.BackColor = Color.FromArgb(33, 44, 57);
             BackColor = Color.FromArgb(33, 44, 57);
             SavePathTextBox.BackColor = Color.FromArgb(44, 62, 98);
             SavePathTextBox.ForeColor = Color.WhiteSmoke;
-            SaveImage.ForeColor = Color.WhiteSmoke;
 
             TitleText.ForeColor = Color.WhiteSmoke;
-            label1.ForeColor = Color.WhiteSmoke;
-            CheckBoxAutoRun.ForeColor = Color.WhiteSmoke;
 
 
             _settings = new Settings();
-            
 
-            _menu = new ContextMenuStrip();
-            _menu.Items.Add("Захват экрана   |PrintScreen", Properties.Resources.screenshot, (s, e) => 
+
+            _menu = new ContextMenuStrip()
+            {
+                ShowCheckMargin = true,
+                ShowImageMargin = false,
+            };
+
+            _menu.Items.Add("Screenshot", null, (s, e) =>
             {
                 _getText = false;
                 _isShow = false;
                 ShowScreen(SavePath, null);
             });
-            _menu.Items.Add("Извлечь текст   |F9", Properties.Resources.free_transform, (s, e) =>
+            _menu.Items.Add("Read Text", null, (s, e) =>
             {
                 _getText = true;
                 _isShow = false;
                 ShowScreen(SavePath, null);
             });
-            _menu.Items.Add("Выйти", Properties.Resources.button, (s, e) => Application.Exit());
 
-            foreach (ToolStripItem item in _menu.Items)
+            _menu.Items.Add(new ToolStripSeparator());
+
+            _menu.Items.Add("Save image", null, (s, e) =>
             {
-                item.BackColor = Color.FromArgb(33, 44, 57);
-                item.ForeColor = Color.WhiteSmoke;
-                item.MouseEnter += (s, e) => item.ForeColor = Color.Black;
-                item.MouseLeave += (s, e) => item.ForeColor = Color.WhiteSmoke;
-            }
+                var menuCheck = (s as ToolStripMenuItem);
+
+                _settings.SaveImage = menuCheck.Checked = !menuCheck.Checked;
+                _settings.WriteConfig(_settings);
+            });
+            _menu.Items.Add("Startup with windows", null, (s, e) =>
+            {
+                var menuCheck = (s as ToolStripMenuItem);
+
+                _settings.AutoStart = menuCheck.Checked = !menuCheck.Checked;
+                _settings.WriteConfig(_settings);
+            });
+
+            _menu.Items.Add(new ToolStripSeparator());
+
+            _menu.Items.Add("Exit", null, (s, e) => Application.Exit());
 
             _icon = new NotifyIcon()
             {
                 Icon = Properties.Resources.screenshot1,
-                Visible = false,
+                Visible = true,
                 ContextMenuStrip = _menu,
                 Text = TitleText.Text
             };
@@ -100,8 +111,10 @@ namespace ScReader.Forms
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    Show();
-                    _icon.Visible = false;
+                    if (Visible)
+                        Hide();
+                    else
+                        Show();
                 }
             };
 
@@ -121,21 +134,8 @@ namespace ScReader.Forms
                 _settings.SavePath = _savePath;
                 _settings.WriteConfig(_settings);
             };
-
-            SaveImage.CheckedChanged += (s, e) =>
-            {
-                _settings.SaveImage = SaveImage.Checked;
-                _settings.WriteConfig(_settings);
-            };
-
-            CheckBoxAutoRun.CheckedChanged += (s, e) =>
-            {
-                _settings.AutoStart = CheckBoxAutoRun.Checked;
-                _settings.WriteConfig(_settings);
-            };
-
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 12, 12));
-
+            TitleText.ContextMenuStrip = _menu;
             KeyPreview = true;
         }
 
@@ -144,8 +144,7 @@ namespace ScReader.Forms
         private void ButtonMinimize_Click(object sender, EventArgs e)
         {
             this.Hide();
-            _icon.Visible = true;
-        } 
+        }
 
         private void Title_MouseDown(object sender, MouseEventArgs e)
         {
@@ -192,10 +191,6 @@ namespace ScReader.Forms
 
         private void ShowScreen(object sender, EventArgs e)
         {
-            GC.Collect(0, GCCollectionMode.Forced);
-            GC.WaitForPendingFinalizers();
-            GC.Collect(1, GCCollectionMode.Forced);
-            GC.WaitForPendingFinalizers();
             GC.Collect(2, GCCollectionMode.Forced);
             GC.WaitForPendingFinalizers();
 
@@ -262,13 +257,13 @@ namespace ScReader.Forms
             return _image;
         }
 
-        private void ImageToClipboard(Image image) 
+        private void ImageToClipboard(Image image)
         {
             if (_getText == false)
             {
                 Clipboard.SetImage(image);
             }
-        } 
+        }
 
         internal void FindResolutionImage(ref Point start, ref Point end, ref Rectangle resolution)
         {
@@ -301,43 +296,10 @@ namespace ScReader.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            _globalKeyboard = new GlobalKeyboardHook();
-
-            _globalKeyboard.HookedKeys.Add(Keys.PrintScreen);
-            _globalKeyboard.HookedKeys.Add(Keys.F9);
-
-            _globalKeyboard.KeyUp += (s, e) => 
-            {
-                if (e.KeyCode == Keys.PrintScreen)
-                {
-                    _getText = false;
-
-                    if (_icon.Visible == true)
-                        _isShow = false;
-                    
-                    else
-                        _isShow = true;
-                    
-                    ShowScreen(SavePath, null);
-                }
-                else if (e.KeyCode == Keys.F9)
-                {
-                    _getText = true;
-
-                    if (_icon.Visible == true)
-                        _isShow = false;
-
-                    else
-                        _isShow = true;
-
-                    ShowScreen(SavePath, null);
-                }
-            }; 
-
             _settings = _settings.ReadConfig(_settings);
 
-            CheckBoxAutoRun.Checked = _settings.AutoStart;
-            SaveImage.Checked = _settings.SaveImage;
+            (_menu.Items[3] as ToolStripMenuItem).Checked = _settings.SaveImage;
+            (_menu.Items[4] as ToolStripMenuItem).Checked = _settings.AutoStart;
 
             _savePath = _settings.SavePath;
             SavePathTextBox.Text = _savePath;

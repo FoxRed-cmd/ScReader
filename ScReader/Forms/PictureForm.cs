@@ -227,10 +227,6 @@ namespace ScReader.Forms
 
         private void CollectGarbage()
         {
-            GC.Collect(0, GCCollectionMode.Forced);
-            GC.WaitForPendingFinalizers();
-            GC.Collect(1, GCCollectionMode.Forced);
-            GC.WaitForPendingFinalizers();
             GC.Collect(2, GCCollectionMode.Forced);
             GC.WaitForPendingFinalizers();
         }

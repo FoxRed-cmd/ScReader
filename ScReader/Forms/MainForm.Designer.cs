@@ -28,218 +28,179 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.SavePathTextBox = new System.Windows.Forms.TextBox();
-            this.SavePath = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.Screenshot = new System.Windows.Forms.Button();
-            this.ButtonExit = new System.Windows.Forms.Button();
-            this.ButtonMinimize = new System.Windows.Forms.Button();
-            this.Title = new System.Windows.Forms.Panel();
-            this.TitleText = new System.Windows.Forms.Label();
-            this.CheckBoxAutoRun = new System.Windows.Forms.CheckBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.ReadText = new System.Windows.Forms.Button();
-            this.OpenInExplorer = new System.Windows.Forms.Button();
-            this.SaveImage = new System.Windows.Forms.CheckBox();
-            this.Title.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            SavePathTextBox = new TextBox();
+            SavePath = new Button();
+            Screenshot = new Button();
+            ButtonExit = new Button();
+            ButtonMinimize = new Button();
+            Title = new Panel();
+            TitleText = new Label();
+            ReadText = new Button();
+            OpenInExplorer = new Button();
+            toolTip1 = new ToolTip(components);
+            Title.SuspendLayout();
+            SuspendLayout();
             // 
             // SavePathTextBox
             // 
-            this.SavePathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SavePathTextBox.Location = new System.Drawing.Point(54, 38);
-            this.SavePathTextBox.Name = "SavePathTextBox";
-            this.SavePathTextBox.Size = new System.Drawing.Size(241, 23);
-            this.SavePathTextBox.TabIndex = 1;
+            SavePathTextBox.BorderStyle = BorderStyle.FixedSingle;
+            SavePathTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Pixel);
+            SavePathTextBox.Location = new Point(12, 38);
+            SavePathTextBox.Name = "SavePathTextBox";
+            SavePathTextBox.Size = new Size(317, 23);
+            SavePathTextBox.TabIndex = 6;
+            SavePathTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // SavePath
             // 
-            this.SavePath.BackColor = System.Drawing.SystemColors.Control;
-            this.SavePath.BackgroundImage = global::ScReader.Properties.Resources.diskette;
-            this.SavePath.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.SavePath.FlatAppearance.BorderSize = 0;
-            this.SavePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SavePath.Location = new System.Drawing.Point(301, 37);
-            this.SavePath.Name = "SavePath";
-            this.SavePath.Size = new System.Drawing.Size(24, 24);
-            this.SavePath.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.SavePath, "Обзор");
-            this.SavePath.UseVisualStyleBackColor = false;
-            this.SavePath.Click += new System.EventHandler(this.SavePath_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 15);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Путь:";
+            SavePath.BackColor = Color.RoyalBlue;
+            SavePath.BackgroundImage = Properties.Resources.diskette;
+            SavePath.BackgroundImageLayout = ImageLayout.Center;
+            SavePath.FlatAppearance.BorderSize = 0;
+            SavePath.FlatStyle = FlatStyle.Flat;
+            SavePath.Location = new Point(112, 3);
+            SavePath.Name = "SavePath";
+            SavePath.Size = new Size(24, 24);
+            SavePath.TabIndex = 0;
+            toolTip1.SetToolTip(SavePath, "Browse");
+            SavePath.UseVisualStyleBackColor = false;
+            SavePath.Click += SavePath_Click;
             // 
             // Screenshot
             // 
-            this.Screenshot.BackColor = System.Drawing.SystemColors.Control;
-            this.Screenshot.BackgroundImage = global::ScReader.Properties.Resources.screenshot;
-            this.Screenshot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Screenshot.FlatAppearance.BorderSize = 0;
-            this.Screenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Screenshot.Location = new System.Drawing.Point(301, 62);
-            this.Screenshot.Name = "Screenshot";
-            this.Screenshot.Size = new System.Drawing.Size(24, 24);
-            this.Screenshot.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.Screenshot, "Захват экрана   |PrintScreen");
-            this.Screenshot.UseVisualStyleBackColor = false;
-            this.Screenshot.Click += new System.EventHandler(this.Screenshot_Click);
+            Screenshot.BackColor = Color.RoyalBlue;
+            Screenshot.BackgroundImage = Properties.Resources.screenshot;
+            Screenshot.BackgroundImageLayout = ImageLayout.Center;
+            Screenshot.FlatAppearance.BorderSize = 0;
+            Screenshot.FlatStyle = FlatStyle.Flat;
+            Screenshot.Location = new Point(172, 3);
+            Screenshot.Name = "Screenshot";
+            Screenshot.Size = new Size(24, 24);
+            Screenshot.TabIndex = 2;
+            toolTip1.SetToolTip(Screenshot, "Screenshot");
+            Screenshot.UseVisualStyleBackColor = false;
+            Screenshot.Click += Screenshot_Click;
             // 
             // ButtonExit
             // 
-            this.ButtonExit.BackColor = System.Drawing.Color.RoyalBlue;
-            this.ButtonExit.BackgroundImage = global::ScReader.Properties.Resources.button;
-            this.ButtonExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ButtonExit.FlatAppearance.BorderSize = 0;
-            this.ButtonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonExit.Location = new System.Drawing.Point(331, 3);
-            this.ButtonExit.Name = "ButtonExit";
-            this.ButtonExit.Size = new System.Drawing.Size(24, 24);
-            this.ButtonExit.TabIndex = 3;
-            this.ButtonExit.UseVisualStyleBackColor = false;
-            this.ButtonExit.Click += new System.EventHandler(this.ButtonExit_Click);
+            ButtonExit.BackColor = Color.RoyalBlue;
+            ButtonExit.BackgroundImage = Properties.Resources.button;
+            ButtonExit.BackgroundImageLayout = ImageLayout.Center;
+            ButtonExit.FlatAppearance.BorderSize = 0;
+            ButtonExit.FlatStyle = FlatStyle.Flat;
+            ButtonExit.Location = new Point(305, 4);
+            ButtonExit.Name = "ButtonExit";
+            ButtonExit.Size = new Size(24, 24);
+            ButtonExit.TabIndex = 5;
+            ButtonExit.UseVisualStyleBackColor = false;
+            ButtonExit.Click += ButtonExit_Click;
             // 
             // ButtonMinimize
             // 
-            this.ButtonMinimize.BackColor = System.Drawing.Color.RoyalBlue;
-            this.ButtonMinimize.BackgroundImage = global::ScReader.Properties.Resources.minimize;
-            this.ButtonMinimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ButtonMinimize.FlatAppearance.BorderSize = 0;
-            this.ButtonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonMinimize.Location = new System.Drawing.Point(301, 3);
-            this.ButtonMinimize.Name = "ButtonMinimize";
-            this.ButtonMinimize.Size = new System.Drawing.Size(24, 24);
-            this.ButtonMinimize.TabIndex = 4;
-            this.ButtonMinimize.UseVisualStyleBackColor = false;
-            this.ButtonMinimize.Click += new System.EventHandler(this.ButtonMinimize_Click);
+            ButtonMinimize.BackColor = Color.RoyalBlue;
+            ButtonMinimize.BackgroundImage = Properties.Resources.minimize;
+            ButtonMinimize.BackgroundImageLayout = ImageLayout.Center;
+            ButtonMinimize.FlatAppearance.BorderSize = 0;
+            ButtonMinimize.FlatStyle = FlatStyle.Flat;
+            ButtonMinimize.Location = new Point(275, 4);
+            ButtonMinimize.Name = "ButtonMinimize";
+            ButtonMinimize.Size = new Size(24, 24);
+            ButtonMinimize.TabIndex = 4;
+            ButtonMinimize.UseVisualStyleBackColor = false;
+            ButtonMinimize.Click += ButtonMinimize_Click;
             // 
             // Title
             // 
-            this.Title.BackColor = System.Drawing.Color.RoyalBlue;
-            this.Title.Controls.Add(this.TitleText);
-            this.Title.Controls.Add(this.ButtonExit);
-            this.Title.Controls.Add(this.ButtonMinimize);
-            this.Title.Location = new System.Drawing.Point(0, 0);
-            this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(364, 30);
-            this.Title.TabIndex = 5;
-            this.Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Title_MouseDown);
-            this.Title.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Title_MouseMove);
-            this.Title.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Title_MouseUp);
+            Title.BackColor = Color.RoyalBlue;
+            Title.Controls.Add(TitleText);
+            Title.Controls.Add(ReadText);
+            Title.Controls.Add(OpenInExplorer);
+            Title.Controls.Add(ButtonExit);
+            Title.Controls.Add(ButtonMinimize);
+            Title.Controls.Add(Screenshot);
+            Title.Controls.Add(SavePath);
+            Title.Location = new Point(0, 0);
+            Title.Name = "Title";
+            Title.Size = new Size(339, 30);
+            Title.TabIndex = 5;
+            Title.MouseDown += Title_MouseDown;
+            Title.MouseMove += Title_MouseMove;
+            Title.MouseUp += Title_MouseUp;
             // 
             // TitleText
             // 
-            this.TitleText.AutoSize = true;
-            this.TitleText.ForeColor = System.Drawing.SystemColors.Control;
-            this.TitleText.Location = new System.Drawing.Point(12, 9);
-            this.TitleText.Name = "TitleText";
-            this.TitleText.Size = new System.Drawing.Size(55, 15);
-            this.TitleText.TabIndex = 5;
-            this.TitleText.Text = "ScReader";
-            // 
-            // CheckBoxAutoRun
-            // 
-            this.CheckBoxAutoRun.AutoSize = true;
-            this.CheckBoxAutoRun.Location = new System.Drawing.Point(12, 67);
-            this.CheckBoxAutoRun.Name = "CheckBoxAutoRun";
-            this.CheckBoxAutoRun.Size = new System.Drawing.Size(150, 19);
-            this.CheckBoxAutoRun.TabIndex = 6;
-            this.CheckBoxAutoRun.Text = "Автозагрузка Windows";
-            this.toolTip1.SetToolTip(this.CheckBoxAutoRun, "Добавляет приложение в автозагрузку");
-            this.CheckBoxAutoRun.UseVisualStyleBackColor = true;
+            TitleText.AutoSize = true;
+            TitleText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            TitleText.ForeColor = SystemColors.Control;
+            TitleText.Location = new Point(8, 8);
+            TitleText.Name = "TitleText";
+            TitleText.Size = new Size(60, 15);
+            TitleText.TabIndex = 5;
+            TitleText.Text = "ScReader";
             // 
             // ReadText
             // 
-            this.ReadText.BackgroundImage = global::ScReader.Properties.Resources.free_transform;
-            this.ReadText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ReadText.FlatAppearance.BorderSize = 0;
-            this.ReadText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ReadText.Location = new System.Drawing.Point(331, 62);
-            this.ReadText.Name = "ReadText";
-            this.ReadText.Size = new System.Drawing.Size(24, 24);
-            this.ReadText.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.ReadText, "Извлечь текст   |F9");
-            this.ReadText.UseVisualStyleBackColor = true;
-            this.ReadText.Click += new System.EventHandler(this.ReadText_Click);
+            ReadText.BackgroundImage = Properties.Resources.free_transform;
+            ReadText.BackgroundImageLayout = ImageLayout.Center;
+            ReadText.FlatAppearance.BorderSize = 0;
+            ReadText.FlatStyle = FlatStyle.Flat;
+            ReadText.Location = new Point(202, 3);
+            ReadText.Name = "ReadText";
+            ReadText.Size = new Size(24, 24);
+            ReadText.TabIndex = 3;
+            toolTip1.SetToolTip(ReadText, "Read text");
+            ReadText.UseVisualStyleBackColor = true;
+            ReadText.Click += ReadText_Click;
             // 
             // OpenInExplorer
             // 
-            this.OpenInExplorer.BackgroundImage = global::ScReader.Properties.Resources.folder;
-            this.OpenInExplorer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.OpenInExplorer.FlatAppearance.BorderSize = 0;
-            this.OpenInExplorer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OpenInExplorer.Location = new System.Drawing.Point(331, 38);
-            this.OpenInExplorer.Name = "OpenInExplorer";
-            this.OpenInExplorer.Size = new System.Drawing.Size(24, 23);
-            this.OpenInExplorer.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.OpenInExplorer, "Отркыть в проводнике");
-            this.OpenInExplorer.UseVisualStyleBackColor = true;
-            this.OpenInExplorer.Click += new System.EventHandler(this.OpenInExplorer_Click);
-            // 
-            // SaveImage
-            // 
-            this.SaveImage.AutoSize = true;
-            this.SaveImage.Location = new System.Drawing.Point(168, 67);
-            this.SaveImage.Name = "SaveImage";
-            this.SaveImage.Size = new System.Drawing.Size(84, 19);
-            this.SaveImage.TabIndex = 9;
-            this.SaveImage.Text = "Сохранять";
-            this.toolTip1.SetToolTip(this.SaveImage, "Если не отмечено, изображения не будут сохраняться на диске, отправляясь сразу в " +
-        "буфер обмена");
-            this.SaveImage.UseVisualStyleBackColor = true;
+            OpenInExplorer.BackgroundImage = Properties.Resources.folder;
+            OpenInExplorer.BackgroundImageLayout = ImageLayout.Center;
+            OpenInExplorer.FlatAppearance.BorderSize = 0;
+            OpenInExplorer.FlatStyle = FlatStyle.Flat;
+            OpenInExplorer.Location = new Point(142, 4);
+            OpenInExplorer.Name = "OpenInExplorer";
+            OpenInExplorer.Size = new Size(24, 23);
+            OpenInExplorer.TabIndex = 1;
+            toolTip1.SetToolTip(OpenInExplorer, "Open save folder");
+            OpenInExplorer.UseVisualStyleBackColor = true;
+            OpenInExplorer.Click += OpenInExplorer_Click;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 92);
-            this.Controls.Add(this.SaveImage);
-            this.Controls.Add(this.OpenInExplorer);
-            this.Controls.Add(this.ReadText);
-            this.Controls.Add(this.CheckBoxAutoRun);
-            this.Controls.Add(this.Title);
-            this.Controls.Add(this.Screenshot);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.SavePath);
-            this.Controls.Add(this.SavePathTextBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "MainForm";
-            this.Opacity = 0.93D;
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.Text = "ScReader";
-            this.TopMost = true;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Shown += new System.EventHandler(this.MainForm_Shown);
-            this.Title.ResumeLayout(false);
-            this.Title.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(339, 71);
+            Controls.Add(Title);
+            Controls.Add(SavePathTextBox);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "MainForm";
+            Opacity = 0.93D;
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            Text = "ScReader";
+            TopMost = true;
+            FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
+            Shown += MainForm_Shown;
+            Title.ResumeLayout(false);
+            Title.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private TextBox SavePathTextBox;
         private Button SavePath;
-        private Label label1;
         private Button Screenshot;
         private Button ButtonExit;
         private Button ButtonMinimize;
         private Panel Title;
         private Label TitleText;
-        private CheckBox CheckBoxAutoRun;
         private ToolTip toolTip1;
         private Button ReadText;
         private Button OpenInExplorer;
-        private CheckBox SaveImage;
     }
 }
