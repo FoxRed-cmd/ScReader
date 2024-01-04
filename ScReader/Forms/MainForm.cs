@@ -59,6 +59,7 @@ namespace ScReader.Forms
             _settings = new Settings();
 
 
+
             _menu = new ContextMenuStrip()
             {
                 ShowCheckMargin = true,
@@ -112,7 +113,11 @@ namespace ScReader.Forms
                 if (e.Button == MouseButtons.Left)
                 {
                     if (Visible)
+                    {
+                        GC.Collect(2, GCCollectionMode.Forced);
+                        GC.WaitForPendingFinalizers();
                         Hide();
+                    }
                     else
                         Show();
                 }
@@ -143,6 +148,8 @@ namespace ScReader.Forms
 
         private void ButtonMinimize_Click(object sender, EventArgs e)
         {
+            GC.Collect(2, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
             this.Hide();
         }
 
@@ -191,9 +198,6 @@ namespace ScReader.Forms
 
         private void ShowScreen(object sender, EventArgs e)
         {
-            GC.Collect(2, GCCollectionMode.Forced);
-            GC.WaitForPendingFinalizers();
-
             if (SavePathTextBox.Text != null && SavePathTextBox.Text != string.Empty)
             {
                 this.Hide();
@@ -228,7 +232,6 @@ namespace ScReader.Forms
                 _prevPath = $@"{_savePath}\{DateTime.Now:dd-MM-yyyy_hh-mm-ss}.png";
                 _image.Save(_prevPath, ImageFormat.Png);
             }
-
             return _image;
         }
 

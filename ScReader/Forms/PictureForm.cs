@@ -28,6 +28,18 @@ namespace ScReader.Forms
         public PictureForm()
         {
             InitializeComponent();
+
+            ScreenImage.Paint += (s, e) =>
+            {
+                if (_isSizeChange)
+                {
+                    using (Pen pen = new Pen(Color.Red, 1))
+                    {
+                        e.Graphics.DrawRectangle(pen, _rectangle);
+                    }
+                }
+            };
+
         }
 
         private void ScreenImage_MouseDown(object sender, MouseEventArgs e)
@@ -36,13 +48,13 @@ namespace ScReader.Forms
             {
                 _isSizeChange = true;
                 _startPoint = Cursor.Position;
+
             }
             else if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Middle)
             {
                 _aimForm.Close();
 
                 _isSizeChange = false;
-                CollectGarbage();
 
                 this.Close();
             }
@@ -51,26 +63,12 @@ namespace ScReader.Forms
         private void ScreenImage_MouseMove(object sender, MouseEventArgs e)
         {
             _aimForm.UpdatePosition(Cursor.Position);
-
-            ScreenImage.Image = (Image?)_mainForm._currentImage.Clone();
-
             if (_isSizeChange)
             {
-                using (_pen = new Pen(Brushes.Red, 1))
-                {
-                    using (_graphics = Graphics.FromImage(ScreenImage.Image))
-                    {
-                        FindResolutionImage(_startPoint, Cursor.Position, ref _rectangle);
-                        _graphics.DrawRectangle(_pen, _rectangle);
-                    }
-                }
+                FindResolutionImage(_startPoint, Cursor.Position, ref _rectangle);
 
-                ScreenImage.Refresh();
+                ScreenImage.Invalidate();
             }
-
-            CollectGarbage();
-
-            ScreenImage.Refresh();
         }
 
         private async void ScreenImage_MouseUp(object sender, MouseEventArgs e)
@@ -83,9 +81,6 @@ namespace ScReader.Forms
             if (_startPoint == _endPoint)
             {
                 this.Close();
-
-                CollectGarbage();
-
                 return;
             }
 
@@ -99,7 +94,7 @@ namespace ScReader.Forms
             else
             {
                 _mainForm.MakeScreenshot(_startPoint, _endPoint, true);
-                
+
                 _statusForm.Show();
 
                 try
@@ -119,8 +114,8 @@ namespace ScReader.Forms
 
                 this.Close();
 
-                while (!_task.IsCompleted) 
-                { 
+                while (!_task.IsCompleted)
+                {
                     _statusForm.StatusLabel.Text = "Выполняется извлечение";
                     foreach (char dot in "...")
                     {
@@ -128,22 +123,25 @@ namespace ScReader.Forms
                         await Task.Delay(300);
                     }
                 }
-                
-                File.Delete(_mainForm._prevPath);
-                Clipboard.SetText(recText);
 
-                _statusForm.StatusLabel.Text = "Текст скопирован в буфер обмена";
+                File.Delete(_mainForm._prevPath);
+                if(recText != string.Empty)
+                {
+                    Clipboard.SetText(recText);
+                    _statusForm.StatusLabel.Text = "Текст скопирован в буфер обмена";
+                }
+                else
+                {
+                    _statusForm.StatusLabel.Text = "Не удалось распознать текст";
+                }
 
                 await Task.Delay(1000);
 
                 _statusForm.Close();
-
                 return;
             }
 
             this.Close();
-
-            CollectGarbage();
         }
 
         private string Recognition(string path)
@@ -161,13 +159,19 @@ namespace ScReader.Forms
         private void GetTextFromImage(string path)
         {
             recText = string.Empty;
-            _task = new(() => 
+            _task = new(() =>
             {
                 if (path.EndsWith(".png") || path.EndsWith(".jpg"))
                 {
                     List<char> arr = Recognition(path).ToList();
-                    arr.RemoveRange(arr.Count - 2, 2);
-                    recText = new string(arr.ToArray());
+                    if (arr.Count > 0)
+                    {
+                        arr.RemoveRange(arr.Count - 2, 2);
+                        recText = new string(arr.ToArray());
+                    }
+                    else
+                        recText = string.Empty;
+                    
                 }
             });
             _task.Start();
@@ -222,13 +226,6 @@ namespace ScReader.Forms
                 if (_mainForm._isShow)
                     _mainForm.Show();
             }
-            CollectGarbage();
-        }
-
-        private void CollectGarbage()
-        {
-            GC.Collect(2, GCCollectionMode.Forced);
-            GC.WaitForPendingFinalizers();
         }
     }
 }
